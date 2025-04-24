@@ -32,7 +32,7 @@
     "bash": "bash || true"
   },
   "main": "./index.js",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.24.0",
