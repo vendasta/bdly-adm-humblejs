@@ -147,7 +147,7 @@ class Document
           # 'update' keys which we have to map
           query.query = @_ query.query if query.query?
           query.update = @_ query.update if query.update?
-        else if util.isArray query
+        else if Array.isArray query
           query = (@_ q for q in query)
         else
           query = @_ query
@@ -214,7 +214,7 @@ class Document
         if not doc or not cb
           return cb? err, doc
         # If a document was returned, we define mappings on it
-        if util.isArray doc
+        if Array.isArray doc
           doc = (@wrap d for d in doc)
         else
           doc = @wrap doc
@@ -577,7 +577,7 @@ _map = (obj, mapping, proto, parent_key) ->
               else
                 existing = @[key]
 
-              if util.isArray existing
+              if Array.isArray existing
                 # If we have an array, we need to map all the embedded
                 # documents in that array
                 for item in existing
@@ -612,7 +612,7 @@ _map = (obj, mapping, proto, parent_key) ->
         # Recursively map embedded keys
         _map embed_key, embed.mapping, embed_proto, embed_key
       else
-        if util.isArray key
+        if Array.isArray key
           # Split the key into the key and default value
           [key, value] = key
 
@@ -683,7 +683,7 @@ _transform = (doc, schema, dest) ->
     if name[0] == '$'
       # If we have a special key, we pretty much skip transforming it and
       # attempt to continue transforming subdocs
-      if util.isArray value
+      if Array.isArray value
         dest[name] = (_transform v, schema, {} for v in value)
       else
         dest[name] = {}
@@ -697,13 +697,13 @@ _transform = (doc, schema, dest) ->
       # possibly handle embedded and arrays
       key = schema[name]
       # Handle keys which have default values
-      if util.isArray key
+      if Array.isArray key
         key = key[0]
       key_name = if key.isEmbed then key.key else key
       if key.isEmbed
         # If it's embedded, we have to check if it's an array, or recursively
         # map the embedded document
-        if util.isArray value
+        if Array.isArray value
           # Recursively map all the subdocs in the array
           dest[key_name] = (_transform v, key, {} for v in value)
         else
@@ -732,7 +732,7 @@ _transformDotted = (name, schema) ->
     # the schema is still an object
     if schema instanceof Object and name of schema
       key = schema[name]
-      if util.isArray key
+      if Array.isArray key
         [key, default_value] = key
       key = if key.isEmbed then key.key else key
       return key
@@ -762,7 +762,7 @@ _invertSchema = (schema) ->
   for key, value of schema
     if value.isEmbed
       inverse[value.key] = Embed key, _invertSchema value.mapping
-    else if util.isArray value
+    else if Array.isArray value
       [value, default_value] = value
       inverse[value] = key
     else
