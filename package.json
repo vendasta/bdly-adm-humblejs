@@ -28,7 +28,7 @@
     "pretest": "./dbinit.sh ${AUTH_FLAG} init ${MONGODB_VERSION}",
     "test": "coffeelint index.coffee test/ && mocha --require coffee-script/register 'test/**/*.coffee'",
     "preversion": "npm test",
-    "prepublish": "npm build",
+    "prepublish": "npm run build",
     "postpublish": "git push && git push --tags",
     "posttest": "./dbinit.sh clean ${MONGODB_VERSION}",
     "docs": "echo 'Docs needs some love.'",
