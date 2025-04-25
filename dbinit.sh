@@ -168,9 +168,9 @@ if [ -z "${CMD}" ]; then
     exit 1
 fi
 
-# Choose default as 2.6.x if db_version is not given
+# Choose default as 4.x.x if db_version is not given
 if [ -z "${MONGODB_VERSION}" ]; then
-    MONGODB_VERSION="2.6.x"
+    MONGODB_VERSION="4.x.x"
 fi
 
 # Print out settings for debugging
