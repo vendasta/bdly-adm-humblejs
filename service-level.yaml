@@ -1,0 +1,6 @@
+services:
+  - name: bdly-adm-humblejs
+    owner: about-me
+    language: coffeescript
+    nonServiceType: library
+    description: "HumbleDB for Javascript"
